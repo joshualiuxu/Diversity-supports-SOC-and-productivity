@@ -2,9 +2,9 @@
 Diversity supports SOC and productivity
 
 
-# Supporting R Code for Manuscript: "Eukaryotic Microbial Diversity Supports Soil SOC and Crop Yield"
+# Supporting R Code for Manuscript: "Eukaryotic Microbial Diversity Supports Soil SOC and Productivity"
 
-This repository contains six R scripts that support the analyses presented in **Yang et al.**'s manuscript titled *"Eukaryotic Microbial Diversity Supports Soil SOC and Crop Yield"*. These scripts cover data preprocessing, network construction, motif analysis, and taxonomy assignment.
+This repository contains six R scripts that support the analyses presented in **Yang et al.**'s manuscript titled *"Eukaryotic Microbial Diversity Supports Soil SOC and Productivity"*. These scripts cover data preprocessing, network construction, motif analysis, and taxonomy assignment.
 
 ## Repository Contents
 
