@@ -72,8 +72,8 @@ This repository contains six R scripts that support the analyses presented in **
 
 For questions or issues regarding the code, please contact:
 
-Liu Xu
+Xu Liu
 Email: xliu@issas.ac.cn
 
-Tian Yang
+Teng Yang
 Email: tyang@issas.ac.cn   
