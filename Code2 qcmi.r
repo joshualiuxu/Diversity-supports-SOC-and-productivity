@@ -37,7 +37,7 @@ plot(varclus(as.matrix(env)))
 
 # Evaluate ecological factors (soil) impact on network
 results_soil <- lapply(names(soil), function(s) {
-  assigned_process(link_table_row=edgelist, OTUabd=otu, p=0.05, data=soil[[s]], cutoff=0, method="ef")
+  assigned_process(link_table_row=edgelist, OTUabd=otu, p=0.05, data=soil[s], cutoff=0, method="ef")
 })
 
 # Aggregate soil links from results
@@ -49,7 +49,7 @@ plot(varclus(as.matrix(climate)))
 
 # Evaluate ecological factors (climate) impact on network
 results_climate <- lapply(names(climate), function(c) {
-  assigned_process(link_table_row=edgelist, OTUabd=otu, p=0.05, data=climate[[c]], cutoff=0, method="ef")
+  assigned_process(link_table_row=edgelist, OTUabd=otu, p=0.05, data=climate[c], cutoff=0, method="ef")
 })
 
 # Aggregate climate links from results
