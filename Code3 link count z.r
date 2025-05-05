@@ -1,16 +1,23 @@
-
 # Load necessary libraries
 library(igraph)
 library(tidyverse)
 
 # Import data
 otu <- read.csv("rarefied_otu_table_euk.csv", row.names=1)
-node_types <- read.csv("a.csv", row.names=1)
+node_types <- read.csv("node_types1.csv", row.names=1)
 edgelist <- read.csv("biotic_edge.csv", row.names=1)
 
 # Prepare biotic graph with absolute weights
 ig_biotic_abs <- graph_from_edgelist(as.matrix(edgelist[, 1:2]), directed = FALSE)
 ig_biotic_abs <- set_edge_attr(ig_biotic_abs, 'weight', index = E(ig_biotic_abs), abs(as.numeric(edgelist[, 3])))
+
+
+# Filter nodes based on OTU counts and create subgraphs
+node <- vertex_attr(ig_biotic_abs)[[1]]
+name <- intersect(row.names(node_types), node)
+node_types  <- as.data.frame(node_types[name,]) 
+row.names(node_types) = name
+colnames(node_types) = "type"
 
 # Assign node types to the graph
 ig_biotic_abs <- set_vertex_attr(ig_biotic_abs, "type", index = V(ig_biotic_abs), node_types$type)
@@ -61,7 +68,7 @@ for (i in seq_len(260L)) {
     df_total[, i] <- long_df$Value
 }
 
-write.csv(df_total, "df_total.csv")
+#write.csv(df_total, "df_total.csv")
 
 # 假设df_total是你原始的dataframe
 
@@ -122,7 +129,7 @@ library(tidyverse)   # 包含数据处理、可视化等功能的综合包
 
 # Import data
 otu <- read.csv("rarefied_otu_table_euk.csv", row.names = 1)  # 导入 OTU 表格数据
-node_types <- read.csv("a.csv", row.names = 1)                # 导入节点类型数据
+node_types <- read.csv("node_types1.csv", row.names = 1)                # 导入节点类型数据
 edgelist <- read.csv("biotic_edge.csv", row.names = 1)        # 导入边列表数据
 
 # Prepare biotic graph with absolute weights
