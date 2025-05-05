@@ -6,7 +6,7 @@ library(igraph)
 library(Matrix)
 
 # Read and preprocess OTU table
-data <- read.delim("table.txt", row.names=1, header=T, sep='\t')
+data <- read.csv("otu.csv", row.names=1)
 OTU <- otu_table(data, taxa_are_rows = TRUE)
 
 # Filter taxa that appear more than once across samples
@@ -33,9 +33,19 @@ sebeta <- symBeta(getOptBeta(se.mb.amgut), mode='maxabs')
 sebeta1 <- as.matrix(sebeta)
 elist.mb <- summary(sebeta)
 
+
+#write.csv(elist.mb,"elist.mb.csv")
+#此时elist.mb 中的前两列是以数字代表的微生物node，而数字的顺序对应的是otu表中的otu行名顺序编号，需要excel中vlookup匹配后导入，否则后续的igraph格式网络缺少node名称
+#elist.mb <- read.csv("elist.mb.csv")
+#也可以在igraph里面命名node name
+#V(ig)$name  <- row.names(otu)
+#二者选其一 否则 igraph格式的网络中没有name这一项
+
 # Construct an undirected graph from edge list
 ig <- graph_from_edgelist(as.matrix(elist.mb[,1:2]), directed = FALSE)
 ig <- set_edge_attr(ig, 'weight', index = E(ig), as.numeric(elist.mb[,3]))
+
+
 
 # Filter nodes based on OTU counts and create subgraphs
 otu_filter <- otu
