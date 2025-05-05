@@ -12,17 +12,20 @@ library(SpiecEasi)
 library(ggstatsplot)
 library(Hmisc)
 library(dplyr)
+#devtools::install_github("joshualiuxu/qcmi")
+library(qcmi)
+
 
 # Read data files
 otu <- read.csv("rarefied_otu_table.csv", row.names=1)
-tax <- read.table("tax.txt", header=TRUE, row.names=1)
-env <- read.table("env.txt", header=TRUE, row.names=1)
-geo <- read.table("geo.txt", header=TRUE, row.names=1)
+tax <- read.csv("tax.csv", row.names=1)
 
 # Segment environmental factors into soil, climate, and plant categories
-soil <- env[, 1:16]
-climate <- env[, 17:20]
-plant <- env[, 21]
+plant <- read.csv("plant.csv", row.names=1)
+soil <- read.csv("soil.csv", row.names=1)
+climate <- read.csv("climate.csv", row.names=1)
+geo <- read.csv("geo.csv", row.names=1)
+
 
 # Read and prepare edge list for network construction
 edgelist <- elist.mb
@@ -33,7 +36,7 @@ ig.spieceasi <- set_edge_attr(ig.spieceasi, 'weight', index = E(ig.spieceasi), a
 result_dl <- assigned_process(link_table_row=edgelist, OTUabd=otu, p=0.05, data=geo, cutoff=0, method="dl")
 
 # Detect redundancy in environmental variables using hierarchical clustering
-plot(varclus(as.matrix(env)))
+plot(varclus(as.matrix(soil,plant,climate)))
 
 # Evaluate ecological factors (soil) impact on network
 results_soil <- lapply(names(soil), function(s) {
@@ -44,8 +47,6 @@ results_soil <- lapply(names(soil), function(s) {
 soil_link <- unlist(lapply(results_soil, row.names))
 unique_soil_link <- unique(soil_link)
 
-# Detect redundancy in climate variables
-plot(varclus(as.matrix(climate)))
 
 # Evaluate ecological factors (climate) impact on network
 results_climate <- lapply(names(climate), function(c) {
@@ -68,7 +69,7 @@ bi_link <- setdiff(total_link, c(unique_soil_link, unique_climate_link, plant_li
 write.csv(edgelist[unique_soil_link,], "soil_edge.csv")
 write.csv(edgelist[unique_climate_link,], "climate_edge.csv")
 write.csv(edgelist[plant_link,], "plant_edge.csv")
-write.csv(edgelist[result_dl,], "dl_edge.csv")
+write.csv(edgelist[row.names(result_dl),], "dl_edge.csv")
 write.csv(edgelist[bi_link,], "biotic_edge.csv")
 
 # Construct complete and biotic graphs from edge lists
@@ -87,8 +88,9 @@ sub_graph_ig_biotic <- lapply(names(otu_biotic), function(i) {
 
 # Calculate network properties and save results
 result_all <- sapply(sub_graph_ig_biotic, net_properties)
-result_biotic <- do.call(cbind, result_all)
-write.csv(result_biotic, "result_biotic.csv")
+row.names(result_all) = row.names(net_properties(ig))
+colnames(result_all) = colnames(otu)
+write.csv(result_all, "result_all_biotic.csv")
 
 # Compute and save cohesion metrics using qcmi
 cohesion_biotic <- qcmi(igraph= ig_biotic, OTU= otu_biotic, pers.cutoff=0)
