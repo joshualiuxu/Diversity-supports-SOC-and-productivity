@@ -6,22 +6,9 @@ library(igraph)
 library(Matrix)
 
 # Read and preprocess OTU table
-data <- read.csv("otu.csv", row.names=1)
-OTU <- otu_table(data, taxa_are_rows = TRUE)
-
-# Filter taxa that appear more than once across samples
-OTU1 <- filter_taxa(OTU, function(x) sum(x > 0) > 1, TRUE)
-
-# Filter taxa with total counts less than 10
-OTU2 <- prune_taxa(taxa_sums(OTU1) > 9, OTU1)
-
-# Rarefaction to even depth across samples
-G <- rarefy_even_depth(OTU2, sample.size = min(sample_sums(OTU2)),
-                       rngseed = FALSE, replace = TRUE, trimOTUs = TRUE, verbose = TRUE)
-write.csv(G, "rarefied_otu_table.csv")
-
-# Read the rarefied OTU table for network construction
-otu <- read.csv("rarefied_otu_table.csv", row.names=1)
+# Read OTU table; use rarefied otu table to filter the otus across >53 samples;
+# then introduce this preprocessed otu table for network construction
+otu <- read.table( "otu table.txt", row.names=1)
 
 # Construct microbial network using SpiecEasi
 se.mb.amgut <- spiec.easi(t(otu), method='mb', lambda.min.ratio=1e-2,
