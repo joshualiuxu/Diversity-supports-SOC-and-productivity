@@ -92,6 +92,29 @@ row.names(result_all) = row.names(net_properties(ig))
 colnames(result_all) = colnames(otu)
 write.csv(result_all, "result_all_biotic.csv")
 
+
+# Modularity
+ig_biotic_mod <- graph_from_edgelist(as.matrix(edgelist[bi_link,1:2]), directed = FALSE)
+ig_biotic_mod <- set_edge_attr(ig_biotic_mod, 'weight', index = E(ig_biotic_mod), abs(as.numeric(edgelist[bi_link,3])) )
+otu_biotic <- otu[intersect(row.names(otu), vertex_attr(ig_biotic)[[1]]),]
+sub_graph_ig_biotic_mod <- lapply(names(otu_biotic), function(i) {
+  sample_i <- otu_biotic[i]
+  select_node <- rownames(sample_i)[which(sample_i != 0)]
+  induced_subgraph(ig_biotic_mod, select_node)
+})
+
+modularity=c()
+for(i in 1:length(sub_graph_ig_biotic_mod)){
+cwt=cluster_fast_greedy(sub_graph_ig_biotic_mod[[i]])
+modularity=c(modularity,modularity(sub_graph_ig_biotic_mod[[i]],membership(cwt)))
+print(i)
+}
+modularity= as.data.frame(modularity)
+row.names(modularity) = colnames(otu_biotic)
+View(modularity)
+
+
+
 # Compute and save cohesion metrics using qcmi
 cohesion_biotic <- qcmi(igraph= ig_biotic, OTU= otu_biotic, pers.cutoff=0)
 re_qcmi1 <- data.frame(cohesion_biotic[4], cohesion_biotic[3])
