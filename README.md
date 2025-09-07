@@ -51,17 +51,17 @@ This repository contains six R scripts that support the analyses presented in **
   - Motif analysis results (`result_netmotif.csv`).
   - Z-scores and P-values for motifs (`motif_z_scores.csv`, `motif_p_values.csv`).
 
-### 6. `network_motif_functions.r`
+### 6. `Code6_network_motif_functions.r`
 - **Purpose**: Defines functions for network motif analysis.
 - **Key Functions**:
   - Implements various motif calculations, including cycle facilitation, cycle competition, and transitive associations.
-- **Usage**: Functions are sourced in `Code4_motifs.r` to calculate motif distributions.
+- **Usage**: Functions are sourced in `Code5_motifs.r` to calculate motif distributions.
 
 ## Usage Instructions
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/joshualiuxu/Diversity-supports-SOC-and-productivity.git
+   git clone https://github.com/joshualiuxu/Fungal-diversity-drives-soil-health-and-agricultural-sustainability-in-black-soils.git
 
 
 
