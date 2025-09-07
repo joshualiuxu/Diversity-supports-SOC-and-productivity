@@ -1,7 +1,3 @@
-# Fungal-diversity-drives-soil-health-and-agricultural-sustainability-in-black-soils
-Fungal diversity drives soil health and agricultural sustainability in black soils
-
-
 # Supporting R Code for Manuscript: "Fungal diversity drives soil health and agricultural sustainability in black soils"
 
 This repository contains six R scripts that support the analyses presented in **Yang et al.**'s manuscript titled *"Fungal diversity drives soil health and agricultural sustainability in black soils"*. These scripts cover data preprocessing, network construction, motif analysis, and taxonomy assignment.
