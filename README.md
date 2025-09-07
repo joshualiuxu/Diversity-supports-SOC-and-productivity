@@ -1,14 +1,22 @@
-# Diversity-supports-SOC-and-productivity
-Diversity supports SOC and productivity
+# Fungal-diversity-drives-soil-health-and-agricultural-sustainability-in-black-soils
+Fungal diversity drives soil health and agricultural sustainability in black soils
 
 
-# Supporting R Code for Manuscript: "Eukaryotic Microbial Diversity Supports Soil SOC and Productivity"
+# Supporting R Code for Manuscript: "Fungal diversity drives soil health and agricultural sustainability in black soils"
 
-This repository contains six R scripts that support the analyses presented in **Yang et al.**'s manuscript titled *"Eukaryotic Microbial Diversity Supports Soil SOC and Productivity"*. These scripts cover data preprocessing, network construction, motif analysis, and taxonomy assignment.
+This repository contains six R scripts that support the analyses presented in **Yang et al.**'s manuscript titled *"Fungal diversity drives soil health and agricultural sustainability in black soils"*. These scripts cover data preprocessing, network construction, motif analysis, and taxonomy assignment.
 
 ## Repository Contents
 
-### 1. `Code1_network_construction.r`
+### 5. `Code1_taxonomy_assignment.r`
+- **Purpose**: Assigns taxonomy to OTUs using multiple datasets.
+- **Key Functions**:
+  - Merges taxonomy assignments from different sources (e.g., ITS, 18SV9).
+  - Selects the most informative assignment based on scoring.
+- **Output**: 
+  - Final merged taxonomy assignment (`final_merged_data.csv`).
+
+### 1. `Code2_network_construction.r`
 - **Purpose**: Constructs microbial networks from OTU tables using the SpiecEasi method.
 - **Key Functions**:
   - Filters OTUs based on abundance and prevalence thresholds.
@@ -18,7 +26,7 @@ This repository contains six R scripts that support the analyses presented in **
   - Rarefied OTU table (`rarefied_otu_table.csv`).
   - Network edge list and graph structure.
 
-### 2. `Code2_qcmi.r`
+### 2. `Code3_qcmi.r`
 - **Purpose**: Analyzes microbial network cohesion and ecological associations based on environmental factors.
 - **Key Functions**:
   - Splits environmental factors into soil, climate, and plant categories.
@@ -28,7 +36,7 @@ This repository contains six R scripts that support the analyses presented in **
   - CSV files for soil, climate, plant, and biotic network edges.
   - Network cohesion results (`re_qcmi1.csv`).
 
-### 3. `Code3_link_count_z.r`
+### 3. `Code4_link_count_z.r`
 - **Purpose**: Calculates interaction counts between different node types and performs Z-score and P-value calculations.
 - **Key Functions**:
   - Constructs subgraphs for each sample.
@@ -38,7 +46,7 @@ This repository contains six R scripts that support the analyses presented in **
   - Interaction count matrix (`df_total.csv`).
   - Z-score and P-value results (`z_scores.csv`, `p_values.csv`).
 
-### 4. `Code4_motifs.r`
+### 4. `Code5_motifs.r`
 - **Purpose**: Performs motif analysis on microbial networks.
 - **Key Functions**:
   - Identifies network motifs using the `netmotif` function.
@@ -46,14 +54,6 @@ This repository contains six R scripts that support the analyses presented in **
 - **Output**: 
   - Motif analysis results (`result_netmotif.csv`).
   - Z-scores and P-values for motifs (`motif_z_scores.csv`, `motif_p_values.csv`).
-
-### 5. `Code5_taxonomy_assignment.r`
-- **Purpose**: Assigns taxonomy to OTUs using multiple datasets.
-- **Key Functions**:
-  - Merges taxonomy assignments from different sources (e.g., ITS, 18SV9).
-  - Selects the most informative assignment based on scoring.
-- **Output**: 
-  - Final merged taxonomy assignment (`final_merged_data.csv`).
 
 ### 6. `network_motif_functions.r`
 - **Purpose**: Defines functions for network motif analysis.
