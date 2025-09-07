@@ -18,7 +18,7 @@ otu_biotic <- read.csv("rarefied_otu_table.csv", row.names=1)
 
 # Define a function to calculate network motifs
 # This includes cycle facilitation, cycle competition, etc.
-source("network_motif_functions.R")  # Assuming the functions are saved in this file
+source("Code6 network_motif_functions.R")  # Assuming the functions are saved in this file
 
 # Extract adjacency matrices from each subgraph for motif calculation
 sub_netadj_biotic <- lapply(sub_graph_ig_biotic, function(g) {
@@ -92,5 +92,6 @@ write.csv(df_z_scores, "motif_z_scores.csv")
 colnames(result_p_values) <- colnames(result_netmotif)
 row.names(result_p_values) = colnames(otu_biotic) 
 write.csv(result_p_values, "motif_p_values.csv")
+
 
 
